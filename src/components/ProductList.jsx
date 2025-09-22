@@ -41,7 +41,7 @@ const ProductList = () => {
 
   const getCartQuantity = (id) => {
     const item = cartItems.find((i) => i.id === id);
-    return item ? item.quantity : 0;
+    return item ? item.quantity : 1;
   };
 
   return (
@@ -52,6 +52,7 @@ const ProductList = () => {
         background: "linear-gradient(to right, #fbc2eb, #a6c1ee)",
       }}
     >
+    
       <Box
         sx={{
           display: "flex",
@@ -123,7 +124,7 @@ const ProductList = () => {
                   objectFit: "cover",
                   transition: "transform 0.3s",
                   "&:hover": { transform: "scale(1.05)" },
-                  height: { xs: 160, sm: 180, md: 200, lg: 220 },
+                  height: { xs: 160, sm: 150, md: 160, lg: 180 },
                 }}
               />
               <CardContent>
@@ -152,53 +153,61 @@ const ProductList = () => {
                   variant="body1"
                   fontWeight="bold"
                   color="#6a1b9a"
-                  sx={{ fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1.2rem" } }}
+                  sx={{
+                    fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1.2rem" },
+                  }}
                 >
                   ${product.price}
                 </Typography>
               </CardContent>
 
-              <CardActions sx={{ justifyContent: "center", paddingBottom: "18px"}}>
-                {quantity > 0 ? (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-
-                    }}
-                  >
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      onClick={() => dispatch(decreaseQuantity(product.id))}
-                    >
-                      -
-                    </Button>
-                    <Typography sx={{ minWidth: 20, textAlign: "center" }}>
-                      {quantity}
-                    </Typography>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      onClick={() => dispatch(increaseQuantity(product.id))}
-                    >
-                      +
-                    </Button>
-                  </Box>
-                ) : (
+              <CardActions
+                sx={{
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  gap: 1,
+                  marginBottom: "8px",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    paddingBottom: "5px",
+                  }}
+                >
                   <Button
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      backgroundColor: "#6a1b9a",
-                      "&:hover": { backgroundColor: "#4a148c" },
-                    }}
-                    onClick={() => dispatch(addToCart(product))}
+                    variant="outlined"
+                    size="small"
+                    onClick={() => dispatch(decreaseQuantity(product.id))}
                   >
-                    Add to Cart
+                    -
                   </Button>
-                )}
+                  <Typography sx={{ minWidth: 20, textAlign: "center" }}>
+                    {quantity}
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => dispatch(increaseQuantity(product))}
+                  >
+                    +
+                  </Button>
+                </Box>
+
+                <Button
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#6a1b9a",
+                    "&:hover": { backgroundColor: "#4a148c" },
+                  }}
+                  onClick={() => dispatch(addToCart(product))}
+                >
+                  Add to Cart
+                </Button>
               </CardActions>
             </Card>
           );
@@ -221,3 +230,4 @@ const ProductList = () => {
 };
 
 export default ProductList;
+

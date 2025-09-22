@@ -38,6 +38,7 @@ const CartModal = ({ open, setOpen }) => {
   const [search, setSearch] = useState("");
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+
   const rowsPerPage = 5;
 
   const handleSort = (property) => {
@@ -110,7 +111,7 @@ const CartModal = ({ open, setOpen }) => {
         >
           Cart Items
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ maxHeight: "700px" }}>
           {cartItems.length === 0 ? (
             <Box textAlign="center" py={4} fontSize={{ xs: 14, sm: 16 }}>
               No items in cart.
@@ -238,9 +239,7 @@ const CartModal = ({ open, setOpen }) => {
                             <Button
                               variant="outlined"
                               size="small"
-                              onClick={() =>
-                                dispatch(increaseQuantity(item.id))
-                              }
+                              onClick={() => dispatch(increaseQuantity(item))}
                             >
                               +
                             </Button>
@@ -279,7 +278,6 @@ const CartModal = ({ open, setOpen }) => {
                   page={page}
                   onPageChange={(e, newPage) => setPage(newPage)}
                   rowsPerPage={rowsPerPage}
-                  rowsPerPageOptions={[10]}
                   labelRowsPerPage=""
                   sx={{
                     "& .MuiTablePagination-spacer": { display: "none" },
